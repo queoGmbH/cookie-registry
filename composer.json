@@ -1,0 +1,25 @@
+{
+    "name": "queo/cookie-registry",
+    "description": "Library to global register, handle and describe Cookies.",
+    "type": "library",
+    "license": "GPL-2.0+",
+    "authors": [
+        { "name": "Maik Starke", "email": "m.starke@queo-group.com" }
+    ],
+    "config": {
+        "bin-dir": "bin"
+    },
+    "autoload": {
+        "psr-4": { "Queo\\CookieRegistry\\": "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Queo\\CookieRegistry\\Tests\\": "tests/" }
+    },
+    "require": {
+        "symfony/yaml": "*"
+    },
+    "require-dev": {
+        "phpmetrics/phpmetrics": "~2",
+        "phpunit/phpunit": "5.7.*"
+    }
+}

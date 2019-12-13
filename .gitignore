@@ -1,0 +1,7 @@
+.idea/
+bin/
+tests/_output/*
+vendor/
+build/
+composer.lock
+bumpversion.sh
