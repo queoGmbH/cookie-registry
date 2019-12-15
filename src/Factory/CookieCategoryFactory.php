@@ -34,8 +34,8 @@ class CookieCategoryFactory
     }
 
     /**
-     * @param $key
-     * @param $configuration
+     * @param string $key
+     * @param array $configuration
      *
      * @return bool
      */

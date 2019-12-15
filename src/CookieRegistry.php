@@ -109,7 +109,7 @@ class CookieRegistry
     }
 
     /**
-     * @param $key
+     * @param string $key
      *
      * @return array
      */
@@ -141,7 +141,7 @@ class CookieRegistry
     }
 
     /**
-     * @param  $name
+     * @param  string $name
      *
      * @return array
      */
@@ -169,6 +169,6 @@ class CookieRegistry
             'cookieCategories' => self::$_instance->cookieCategories,
         ];
 
-        return \GuzzleHttp\json_encode($registry);
+        return \json_encode($registry);
     }
 }

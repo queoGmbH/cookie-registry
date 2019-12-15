@@ -21,7 +21,7 @@ class Cookie implements \JsonSerializable
     protected $secure;
     /** @var bool */
     protected $httpOnly;
-    /** @var CookieCategory */
+    /** @var CookieCategory|string */
     protected $cookieCategory;
     /** @var string */
     protected $description;
@@ -36,12 +36,12 @@ class Cookie implements \JsonSerializable
      * @param string $name
      * @param string $value
      * @param int $expire
-     * @param null $cookieCategory
+     * @param CookieCategory|string|null $cookieCategory
      * @param string $domain
      * @param string $path
      * @param bool|null $httpOnly
      * @param bool $secure
-     * @param null $description
+     * @param string|null $description
      * @param bool $approved
      */
     public function __construct(

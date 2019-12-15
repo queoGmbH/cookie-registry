@@ -7,7 +7,7 @@ use Queo\CookieRegistry\Entity\Cookie;
 class CookieHandler
 {
     /**
-     * @param sring|null $name
+     * @param string|null $name
      *
      * @return mixed
      */
@@ -43,8 +43,8 @@ class CookieHandler
      *
      * @return bool
      */
-    public static function unsetCookie(Cookie $cookie): bool
+    public static function unsetCookie(Cookie $cookie)
     {
-        setcookie($cookie->getName(), null, -1);
+        return setcookie($cookie->getName(), null, -1);
     }
 }
