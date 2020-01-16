@@ -20,6 +20,7 @@ class ConfigurationUtility
     public function getYamlConfiguration()
     {
         $yamlValues = Yaml::parseFile($this->configFilePath);
+
         return $yamlValues[self::CONFIG_KEY];
     }
 
@@ -35,5 +36,32 @@ class ConfigurationUtility
         }
 
         return $this->getYamlConfiguration();
+    }
+
+    /**
+     * @param string $searchKey
+     * @param array $configurationArray
+     *
+     * @return bool
+     */
+    public function getConfigurationByKey($searchKey, $configurationArray = [])
+    {
+        return false;
+    }
+
+    /**
+     * @param string|array $configItem
+     * @param string $languageKey
+     *
+     * @return mixed
+     */
+    public static function getLabelTranslation($configItem, $languageKey)
+    {
+        if (is_array($configItem)) {
+            return (array_key_exists($languageKey,
+                    $configItem) && ! empty($configItem[$languageKey])) ? $configItem[$languageKey] : array_values($configItem)[0];
+        } else {
+            return $configItem;
+        }
     }
 }

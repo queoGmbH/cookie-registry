@@ -20,6 +20,15 @@
     },
     "require-dev": {
         "phpmetrics/phpmetrics": "~2",
-        "phpunit/phpunit": "5.7.*"
+        "phpunit/phpunit": "5.7.*",
+        "phpstan/phpstan": "^0.12"
+    },
+    "scripts": {
+        "test-phpstan": [
+            "phpstan analyse -c config\\tests\\phpstan.neon src\\"
+        ],
+        "test-phpunit": [
+            "phpunit -c config\\tests\\phpunit.xml"
+        ]
     }
 }

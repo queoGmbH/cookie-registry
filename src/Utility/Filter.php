@@ -15,7 +15,7 @@ class Filter
      */
     public static function getCookieByName($name)
     {
-        $cookies = CookieRegistry::getCookies();
+        $cookies = CookieRegistry::get()->getCookies();
 
         if (array_key_exists($name, $cookies)) {
             return $cookies[$name];
