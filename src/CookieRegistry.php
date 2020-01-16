@@ -60,14 +60,16 @@ class CookieRegistry
     }
 
     /**
-     * @param string|null $languageKey
+     * @param array|null $settings
      * @param array|null $customConfiguration
      *
      * @return CookieRegistry
      */
-    public static function get(string $languageKey = null, array $customConfiguration = null)
+    public static function get(array $settings = null, array $customConfiguration = null)
     {
-        $configurationYamlPath = 'config/configuration.prod.yml';
+        $configurationYamlPath = (array_key_exists('configurationYamlPath', $settings))? $settings['configurationYamlPath'] : null;
+        $languageKey = (array_key_exists('languageKey', $settings))? $settings['languageKey'] : null;
+
         if (self::$_instance == null) {
             self::$_instance = new CookieRegistry($languageKey, $configurationYamlPath);
         }
