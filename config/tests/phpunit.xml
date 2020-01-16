@@ -6,7 +6,7 @@
          bootstrap="../../vendor/autoload.php">
     <testsuites>
         <testsuite name="queo cookie-registry">
-            <directory>.tests/</directory>
+            <directory>../../tests</directory>
         </testsuite>
     </testsuites>
 </phpunit>

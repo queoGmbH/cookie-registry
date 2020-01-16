@@ -1,0 +1,56 @@
+configuration:
+  cache:
+    doctrine:
+      driver: \Doctrine\Common\Cache\PhpFileCache
+      arguments:
+        directory: cache
+cookie_registry:
+  settings:
+    settingsStorageCookie: user_cookie_settings
+    dialog:
+      contentHtml: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore <a href="google.de">magna</a> aliquyam erat, sed diam voluptua.
+      buttons:
+        confirm:
+          label: Auswahl bestätigen
+        selectAll:
+          label: Alle auswählen und bestätigen
+  cookieCategories:
+    system:
+      name: System
+      description:
+        de : Diese Webseite verwendet Cookies.
+        en : this website uses cookies.
+      required: true
+    stats:
+      name: Tracking
+      description: Allow interaction-tracking incl. forms and pages
+      required: false
+    comfort:
+      name: Google Services
+      description: Allow cookies from Google services
+      required: false
+  cookies:
+    user_cookie_settings:
+      description: Stores users cookie-settings
+      cookieCategoryKey: system
+      expires: 365
+    google_recaptcha:
+      description: Google ReCaptcha
+      cookieCategoryKey: system
+      expires: 365
+    fonts:
+      description: Fonts
+      cookieCategoryKey: system
+      expires: 365
+    plyr:
+      description: Plyr
+      cookieCategoryKey: system
+      expires: 365
+    _ga:
+      description: Google Tag Manager
+      cookieCategoryKey: stats
+      expires: 365
+    _gid :
+      description: GID
+      cookieCategoryKey: stats
+      expires: 365

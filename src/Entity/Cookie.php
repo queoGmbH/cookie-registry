@@ -12,7 +12,7 @@ class Cookie implements \JsonSerializable
     /** @var string */
     protected $value;
     /** @var int */
-    protected $expire;
+    protected $expires;
     /** @var string */
     protected $domain;
     /** @var string */
@@ -21,7 +21,7 @@ class Cookie implements \JsonSerializable
     protected $secure;
     /** @var bool */
     protected $httpOnly;
-    /** @var CookieCategory|string */
+    /** @var CookieCategory */
     protected $cookieCategory;
     /** @var string */
     protected $description;
@@ -35,8 +35,8 @@ class Cookie implements \JsonSerializable
      *
      * @param string $name
      * @param string $value
-     * @param int $expire
-     * @param CookieCategory|string|null $cookieCategory
+     * @param int $expires
+     * @param CookieCategory|null $cookieCategory
      * @param string $domain
      * @param string $path
      * @param bool|null $httpOnly
@@ -47,7 +47,7 @@ class Cookie implements \JsonSerializable
     public function __construct(
         $name,
         $value = null,
-        $expire,
+        $expires,
         $cookieCategory = null,
         $domain = "",
         $path = "/",
@@ -58,7 +58,7 @@ class Cookie implements \JsonSerializable
     ) {
         $this->name        = $name;
         $this->value       = $value;
-        $this->expire      = $expire;
+        $this->expires     = $expires;
         $this->domain      = $domain;
         $this->path        = $path;
         $this->httpOnly    = $httpOnly;
@@ -119,17 +119,17 @@ class Cookie implements \JsonSerializable
     /**
      * @return int
      */
-    public function getExpire()
+    public function getExpires()
     {
-        return $this->expire;
+        return $this->expires;
     }
 
     /**
-     * @param int $expire
+     * @param int $expires
      */
-    public function setExpire($expire): void
+    public function setExpires($expires): void
     {
-        $this->expire = $expire;
+        $this->expires = $expires;
     }
 
     /**
@@ -269,7 +269,7 @@ class Cookie implements \JsonSerializable
             [
                 'name'           => $this->getName(),
                 'value'          => $this->getValue(),
-                'expire'         => $this->getExpire(),
+                'expires'        => $this->getExpires(),
                 'domain'         => $this->getDomain(),
                 'path'           => $this->getPath(),
                 'httpOnly'       => $this->isHttpOnly(),

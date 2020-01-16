@@ -7,12 +7,14 @@ use Queo\CookieRegistry\Entity\Cookie;
 use Queo\CookieRegistry\Entity\CookieCategory;
 use Queo\CookieRegistry\Factory\CookieCategoryFactory;
 use Queo\CookieRegistry\Factory\CookieFactory;
+use Queo\CookieRegistry\Factory\SettingsFactory;
 use Queo\CookieRegistry\Utility\ConfigurationUtility;
 
 class CookieRegistry
 {
+    const SYSTEM_COOKIE_REQUEST_VAR = 'setSystemCookies';
     /**
-     * @var CookieRegistry|null
+     * @var CookieRegistry
      */
     private static $_instance = null;
     /**
@@ -36,6 +38,10 @@ class CookieRegistry
      */
     protected $customConfiguration;
     /**
+     * @var string
+     */
+    protected $lanuageKey;
+    /**
      * @var array
      */
     public $settings;
@@ -43,26 +49,29 @@ class CookieRegistry
     /**
      * CookieRegistry constructor.
      *
-     * @param string $configurationFilePath
+     * @param string $languageKey
+     * @param string $configurationYamlPath
      */
-    private function __construct($configurationFilePath)
+    private function __construct($languageKey = null, $configurationYamlPath = null)
     {
-        $this->configurationUtility = new ConfigurationUtility($configurationFilePath);
+        $this->configurationUtility = new ConfigurationUtility($configurationYamlPath);
         $this->cookieHandler        = new CookieHandler();
-        $this->settings             = $this->getConfiguration()['settings'];
+        $this->settings             = SettingsFactory::build($this->getConfiguration()['settings'], $languageKey);
     }
 
     /**
-     * @param string|null $configurationFilePath
+     * @param string|null $languageKey
      * @param array|null $customConfiguration
      *
-     * @return CookieRegistry|null
+     * @return CookieRegistry
      */
-    public static function get($configurationFilePath = null, $customConfiguration = null)
+    public static function get(string $languageKey = null, array $customConfiguration = null)
     {
+        $configurationYamlPath = 'config/configuration.prod.yml';
         if (self::$_instance == null) {
-            self::$_instance = new CookieRegistry($configurationFilePath);
+            self::$_instance = new CookieRegistry($languageKey, $configurationYamlPath);
         }
+        self::$_instance->lanuageKey = $languageKey;
         self::$_instance->attachCustomConfiguration($customConfiguration);
         self::$_instance->updateCookieCategories();
         self::$_instance->updateCookies();
@@ -92,7 +101,8 @@ class CookieRegistry
     protected function updateCookieCategories(): void
     {
         // build CookieCategory objects
-        $cookieCategories = CookieCategoryFactory::build(self::$_instance->getConfiguration());
+        $cookieCategories = CookieCategoryFactory::build(self::$_instance->getConfiguration(),
+            self::$_instance->lanuageKey);
         // update CookieCategories
         $cookieCategories = array_merge(self::$_instance->cookieCategories, $cookieCategories);
 
@@ -127,7 +137,8 @@ class CookieRegistry
      */
     protected function updateCookies(): void
     {
-        $cookiesByConfig          = CookieFactory::build(self::$_instance->getConfiguration());
+        $cookiesByConfig          = CookieFactory::build(self::$_instance->getConfiguration(),
+            self::$_instance->lanuageKey);
         self::$_instance->cookies = array_merge($cookiesByConfig, self::$_instance->cookies);
     }
 
@@ -141,7 +152,7 @@ class CookieRegistry
     }
 
     /**
-     * @param  string $name
+     * @param string $name
      *
      * @return array
      */
@@ -169,6 +180,6 @@ class CookieRegistry
             'cookieCategories' => self::$_instance->cookieCategories,
         ];
 
-        return \json_encode($registry);
+        return json_encode($registry);
     }
 }

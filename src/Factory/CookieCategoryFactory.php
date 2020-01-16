@@ -3,6 +3,7 @@
 namespace Queo\CookieRegistry\Factory;
 
 use Queo\CookieRegistry\Entity\CookieCategory;
+use Queo\CookieRegistry\Utility\ConfigurationUtility;
 
 class CookieCategoryFactory
 {
@@ -11,19 +12,24 @@ class CookieCategoryFactory
 
     /**
      * @param array $mergedConfiguration
+     * @param string $languageKey
      *
      * @return array
      */
-    public static function build($mergedConfiguration)
+    public static function build($mergedConfiguration, $languageKey = 'en')
     {
         $cookieCategoriesArray = $mergedConfiguration[self::CONFIG_KEY];
         $cookieCategories      = [];
 
         foreach ($cookieCategoriesArray as $key => $cookieCategoryItem) {
+
+            $cookieCategoryDescription = ConfigurationUtility::getLabelTranslation($cookieCategoryItem['description'],
+                $languageKey);
+
             $cookieCategory         = new CookieCategory(
                 $key,
                 $cookieCategoryItem['name'],
-                $cookieCategoryItem['description'],
+                $cookieCategoryDescription,
                 $cookieCategoryItem['required'],
                 self::checkApproval($key, $mergedConfiguration)
             );

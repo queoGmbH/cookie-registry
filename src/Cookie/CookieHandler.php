@@ -30,7 +30,7 @@ class CookieHandler
         return \setcookie(
             $cookie->getName(),
             $cookie->getValue(),
-            $cookie->getExpire(),
+            $cookie->getExpires(),
             $cookie->getPath(),
             $cookie->getDomain(),
             $cookie->isSecure(),
@@ -43,8 +43,35 @@ class CookieHandler
      *
      * @return bool
      */
-    public static function unsetCookie(Cookie $cookie)
+    public static function unsetCookie(Cookie $cookie): bool
     {
         return setcookie($cookie->getName(), null, -1);
+    }
+
+    /***
+     * @param array $configuration
+     * @param array $cookies
+     *
+     * @return Cookie|null
+     */
+    public static function getSystemCookie($configuration, $cookies)
+    {
+        $configuration = $configuration;
+
+        $systemCookieKey = $configuration['settings']['settingsStorageCookie'];
+        if (array_key_exists($systemCookieKey, $cookies)) {
+            /** @var Cookie $systemCookie */
+            $systemCookie = $cookies[$systemCookieKey];
+            $systemCookie->setValue(( ! empty ($_COOKIE[$systemCookie->getName()])) ? $_COOKIE[$systemCookie->getName()] : $systemCookie->getValue());
+
+            return $systemCookie;
+        }
+
+        return false;
+    }
+
+    public static function getSystemCookieCategory()
+    {
+
     }
 }
