@@ -23,12 +23,12 @@ class CookieCategoryFactory
 
         foreach ($cookieCategoriesArray as $key => $cookieCategoryItem) {
 
-            $cookieCategoryDescription = ConfigurationUtility::getLabelTranslation($cookieCategoryItem['description'],
-                $languageKey);
+            $cookieCategoryDescription = ConfigurationUtility::getLabelTranslation($cookieCategoryItem['description'], $languageKey);
+            $cookieCategoryName = ConfigurationUtility::getLabelTranslation($cookieCategoryItem['name'], $languageKey);
 
             $cookieCategory         = new CookieCategory(
                 $key,
-                $cookieCategoryItem['name'],
+                $cookieCategoryName,
                 $cookieCategoryDescription,
                 $cookieCategoryItem['required'],
                 self::checkApproval($key, $mergedConfiguration)
