@@ -17,26 +17,31 @@ class CookieFactory
     public static function build($mergedConfiguration, $languageKey = 'en')
     {
         $cookiesArray = $mergedConfiguration[self::CONFIG_KEY];
-        $cookies      = [];
+        $cookies = [];
 
         foreach ($cookiesArray as $key => $cookieItem) {
 
             $cookieDescription = ConfigurationUtility::getLabelTranslation($cookieItem['description'], $languageKey);
 
-            $cookie        = new Cookie(
+            $cookie = new Cookie(
                 $key,
-                $cookieItem['value'],
-                $cookieItem['expires'],
-                $cookieItem['cookieCategoryKey'],
-                $cookieItem['domain'],
-                $cookieItem['path'],
-                $cookieItem['httpOnly'],
-                $cookieItem['secure'],
+                self::getProperty($cookieItem, 'value'),
+                self::getProperty($cookieItem, 'expires'),
+                self::getProperty($cookieItem, 'cookieCategoryKey'),
+                self::getProperty($cookieItem, 'domain', ''),
+                self::getProperty($cookieItem, 'path', '/'),
+                self::getProperty($cookieItem, 'httpOnly', true),
+                self::getProperty($cookieItem, 'secure', true),
                 $cookieDescription
             );
             $cookies[$key] = $cookie;
         }
 
         return $cookies;
+    }
+
+    protected static function getProperty($cookieItem, $property, $defaultValue = null)
+    {
+        return array_key_exists($property, $cookieItem) ? $cookieItem[$property] : $defaultValue;
     }
 }
