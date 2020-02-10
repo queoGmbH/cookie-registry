@@ -21,7 +21,8 @@ class CookieFactory
 
         foreach ($cookiesArray as $key => $cookieItem) {
 
-            $cookieDescription = ConfigurationUtility::getLabelTranslation($cookieItem['description'], $languageKey);
+            $descriptionItem = self::getProperty($cookieItem, 'description');
+            $cookieDescription = ConfigurationUtility::getLabelTranslation($descriptionItem, $languageKey);
 
             $cookie = new Cookie(
                 $key,
