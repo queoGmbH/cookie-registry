@@ -50,7 +50,7 @@ class CookieCategoryFactory
         $approved = false;
 
         // update approval by cookie
-        $cookieName = ($configuration['settings']['user_cookie_settings']) ? $configuration['settings']['user_cookie_settings'] : null;
+        $cookieName = array_key_exists('user_cookie_settings', $configuration['settings']) ? $configuration['settings']['user_cookie_settings'] : null;
         if ($cookieName && array_key_exists($cookieName, $_COOKIE)) {
             /** @var bool $approved */
             $approved = (array_key_exists($key, $_COOKIE[$cookieName])) ? $_COOKIE[$cookieName][$key] : $approved;
