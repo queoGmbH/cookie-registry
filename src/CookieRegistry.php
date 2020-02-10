@@ -71,7 +71,7 @@ class CookieRegistry
 
         if (self::$_instance == null) {
             self::$_instance = new CookieRegistry($languageKey, $configurationYamlPath);
-            self::$_instance->setSettings(SettingsFactory::build(self::getConfiguration()['settings'], $languageKey));
+            self::$_instance->setSettings(SettingsFactory::build(self::$_instance->getConfiguration()['settings'], $languageKey));
         }
         self::$_instance->lanuageKey = $languageKey;
         self::$_instance->attachCustomConfiguration($customConfiguration);
