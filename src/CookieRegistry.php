@@ -44,7 +44,7 @@ class CookieRegistry
     /**
      * @var array
      */
-    public $settings;
+    protected $settings;
 
     /**
      * CookieRegistry constructor.
@@ -55,8 +55,7 @@ class CookieRegistry
     private function __construct($languageKey = null, $configurationYamlPath = null)
     {
         $this->configurationUtility = new ConfigurationUtility($configurationYamlPath);
-        $this->cookieHandler        = new CookieHandler();
-        $this->settings             = SettingsFactory::build($this->getConfiguration()['settings'], $languageKey);
+        $this->cookieHandler = new CookieHandler();
     }
 
     /**
@@ -67,11 +66,12 @@ class CookieRegistry
      */
     public static function get(array $settings = null, array $customConfiguration = null)
     {
-        $configurationYamlPath = (array_key_exists('configurationYamlPath', $settings))? $settings['configurationYamlPath'] : null;
-        $languageKey = (array_key_exists('languageKey', $settings))? $settings['languageKey'] : null;
+        $configurationYamlPath = (array_key_exists('configurationYamlPath', $settings)) ? $settings['configurationYamlPath'] : null;
+        $languageKey = (array_key_exists('languageKey', $settings)) ? $settings['languageKey'] : null;
 
         if (self::$_instance == null) {
             self::$_instance = new CookieRegistry($languageKey, $configurationYamlPath);
+            self::$_instance->setSettings(SettingsFactory::build(self::getConfiguration()['settings'], $languageKey));
         }
         self::$_instance->lanuageKey = $languageKey;
         self::$_instance->attachCustomConfiguration($customConfiguration);
@@ -127,7 +127,7 @@ class CookieRegistry
      */
     public static function getCookieCategories($key = '')
     {
-        if ( ! empty($key) && array_key_exists($key, self::$_instance->cookieCategories)) {
+        if (!empty($key) && array_key_exists($key, self::$_instance->cookieCategories)) {
             return self::$_instance->cookieCategories[$key];
         }
 
@@ -139,7 +139,7 @@ class CookieRegistry
      */
     protected function updateCookies(): void
     {
-        $cookiesByConfig          = CookieFactory::build(self::$_instance->getConfiguration(),
+        $cookiesByConfig = CookieFactory::build(self::$_instance->getConfiguration(),
             self::$_instance->lanuageKey);
         self::$_instance->cookies = array_merge($cookiesByConfig, self::$_instance->cookies);
     }
@@ -160,7 +160,7 @@ class CookieRegistry
      */
     public static function getCookies($name = '')
     {
-        if ( ! empty($name) && array_key_exists($name, self::$_instance->cookies)) {
+        if (!empty($name) && array_key_exists($name, self::$_instance->cookies)) {
             return self::$_instance->cookies[$name];
         }
 
@@ -173,15 +173,20 @@ class CookieRegistry
     public function getRegistryJson()
     {
         $registry = [
-            'debug'            => [
+            'debug' => [
                 'cookies' => $_COOKIE,
                 'request' => $_REQUEST
             ],
-            'settings'         => self::$_instance->settings,
-            'cookies'          => self::$_instance->cookies,
+            'settings' => self::$_instance->settings,
+            'cookies' => self::$_instance->cookies,
             'cookieCategories' => self::$_instance->cookieCategories,
         ];
 
         return json_encode($registry);
+    }
+
+    protected function setSettings($settings)
+    {
+        $this->settings = $settings;
     }
 }
