@@ -168,9 +168,9 @@ class CookieRegistry
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getRegistryJson()
+    public function getRegistryArray()
     {
         $registry = [
             'debug' => [
@@ -181,6 +181,16 @@ class CookieRegistry
             'cookies' => self::$_instance->cookies,
             'cookieCategories' => self::$_instance->cookieCategories,
         ];
+
+        return $registry;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRegistryJson()
+    {
+        $registry = $this->getRegistryArray();
 
         return json_encode($registry);
     }
