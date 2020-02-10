@@ -58,7 +58,7 @@ class CookieCategoryFactory
 
         // update approval by request
         $requestValue = (isset($_REQUEST[self::SYSTEM_COOKIE_REQUEST_VAR])) ? $_REQUEST[self::SYSTEM_COOKIE_REQUEST_VAR] : false;
-        $approved     = (array_key_exists($key, $requestValue)) ? $requestValue[$key] : $approved;
+        $approved     = ($requestValue && array_key_exists($key, $requestValue)) ? $requestValue[$key] : $approved;
 
         return $approved;
     }
