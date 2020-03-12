@@ -1,3 +1,8 @@
+## 1.2.0 (März 12, 2020)
+  - Merge remote-tracking branch 'origin/master'
+  - added toggle to Registry
+  - added toggleOnStartup Option
+
 ## 1.1.0 (Februar 25, 2020)
   - added possibility to use registry array instead of pre encoded json
   - fixed notice in cookie factory in access for description
