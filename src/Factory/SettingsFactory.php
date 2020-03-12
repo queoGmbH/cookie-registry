@@ -9,12 +9,12 @@ class SettingsFactory
     const DIALOG_KEY = 'dialog';
 
     /**
-     * @param array $settingsConfiguration
+     * @param $settingsConfiguration
      * @param string $languageKey
-     *
-     * @return array
+     * @param bool $toggleOnStartup
+     * @return mixed
      */
-    public static function build($settingsConfiguration, $languageKey = 'en')
+    public static function build($settingsConfiguration, $languageKey = 'en', $toggleOnStartup = true)
     {
         $settings = $settingsConfiguration;
 
@@ -26,6 +26,8 @@ class SettingsFactory
 
         $settings[self::DIALOG_KEY]['buttons']['selectAll']['label'] = ConfigurationUtility::getLabelTranslation($settings[self::DIALOG_KEY]['buttons']['selectAll']['label'],
             $languageKey);
+
+        $settings['toggleOnStartup'] = $toggleOnStartup;
 
         return $settings;
     }
