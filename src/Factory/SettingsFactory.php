@@ -21,11 +21,16 @@ class SettingsFactory
         $settings[self::DIALOG_KEY]['contentHtml'] = ConfigurationUtility::getLabelTranslation($settings[self::DIALOG_KEY]['contentHtml'],
             $languageKey);
 
-        $settings[self::DIALOG_KEY]['buttons']['confirm']['label'] = ConfigurationUtility::getLabelTranslation($settings[self::DIALOG_KEY]['buttons']['confirm']['label'],
-            $languageKey);
+        if (isset($settings[self::DIALOG_KEY]['buttons']['confirm'])) {
+            $settings[self::DIALOG_KEY]['buttons']['confirm']['label'] = ConfigurationUtility::getLabelTranslation($settings[self::DIALOG_KEY]['buttons']['confirm']['label'],
+                $languageKey);
+        }
 
-        $settings[self::DIALOG_KEY]['buttons']['selectAll']['label'] = ConfigurationUtility::getLabelTranslation($settings[self::DIALOG_KEY]['buttons']['selectAll']['label'],
-            $languageKey);
+
+        if (isset($settings[self::DIALOG_KEY]['buttons']['selectAll'])) {
+            $settings[self::DIALOG_KEY]['buttons']['selectAll']['label'] = ConfigurationUtility::getLabelTranslation($settings[self::DIALOG_KEY]['buttons']['selectAll']['label'],
+                $languageKey);
+        }
 
         $settings['toggleOnStartup'] = $toggleOnStartup;
 
