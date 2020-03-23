@@ -26,6 +26,11 @@ class SettingsFactory
                 $languageKey);
         }
 
+        if (isset($settings[self::DIALOG_KEY]['buttons']['selectRequired'])) {
+            $settings[self::DIALOG_KEY]['buttons']['selectRequired']['label'] = ConfigurationUtility::getLabelTranslation($settings[self::DIALOG_KEY]['buttons']['selectRequired']['label'],
+                $languageKey);
+        }
+
 
         if (isset($settings[self::DIALOG_KEY]['buttons']['selectAll'])) {
             $settings[self::DIALOG_KEY]['buttons']['selectAll']['label'] = ConfigurationUtility::getLabelTranslation($settings[self::DIALOG_KEY]['buttons']['selectAll']['label'],
