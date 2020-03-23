@@ -68,7 +68,7 @@ class CookieRegistry
     {
         $configurationYamlPath = (array_key_exists('configurationYamlPath', $settings)) ? $settings['configurationYamlPath'] : null;
         $languageKey = (array_key_exists('languageKey', $settings)) ? $settings['languageKey'] : null;
-        $toggleOnStartup = (array_key_exists('toggleOnStartup', $settings)) ? $settings['toggleOnStartup'] : true;
+        $toggleOnStartup = (array_key_exists('toggleOnStartup', $settings)) ? $settings['toggleOnStartup'] : null;
 
         if (self::$_instance == null) {
             self::$_instance = new CookieRegistry($languageKey, $configurationYamlPath);

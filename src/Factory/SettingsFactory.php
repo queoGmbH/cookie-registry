@@ -11,10 +11,10 @@ class SettingsFactory
     /**
      * @param $settingsConfiguration
      * @param string $languageKey
-     * @param bool $toggleOnStartup
+     * @param bool|null $toggleOnStartup
      * @return mixed
      */
-    public static function build($settingsConfiguration, $languageKey = 'en', $toggleOnStartup = true)
+    public static function build($settingsConfiguration, $languageKey = 'en', $toggleOnStartup = null)
     {
         $settings = $settingsConfiguration;
 
@@ -31,13 +31,14 @@ class SettingsFactory
                 $languageKey);
         }
 
-
         if (isset($settings[self::DIALOG_KEY]['buttons']['selectAll'])) {
             $settings[self::DIALOG_KEY]['buttons']['selectAll']['label'] = ConfigurationUtility::getLabelTranslation($settings[self::DIALOG_KEY]['buttons']['selectAll']['label'],
                 $languageKey);
         }
 
-        $settings['toggleOnStartup'] = $toggleOnStartup;
+        if (!empty($toggleOnStartup)) {
+            $settings['toggleOnStartup'] = $toggleOnStartup;
+        }
 
         return $settings;
     }
