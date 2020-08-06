@@ -21,7 +21,7 @@ class ConfigurationUtility
     {
         $yamlValues = method_exists(Yaml::class, 'parseFile')
             ?Yaml::parseFile($this->configFilePath)
-            :Yaml::parse($this->configFilePath);
+            :Yaml::parse(file_get_contents($this->configFilePath));
 
         return $yamlValues[self::CONFIG_KEY];
     }
